@@ -4,7 +4,8 @@
     "allowJs": false,
     "target": "es6",
     "strict": true,
-    "module": "commonjs"
+    "module": "commonjs",
+    "declaration": true
   },
   "include": [
     "./src/**/*.ts"

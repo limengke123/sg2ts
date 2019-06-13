@@ -7,8 +7,9 @@
     "lib/"
   ],
   "bin": {
-    "sg2ts": "bin/index.js"
+    "sg2ts": "./bin/index.js"
   },
+  "types": "./lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "npm run build",

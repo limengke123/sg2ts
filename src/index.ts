@@ -3,7 +3,7 @@ export interface option {
     space?: number
     withInterface?: boolean
 }
-export const sg2ts = function (str: string, option:option = {space: 2, withInterface: true}) {
+export const sg2ts = function (str: string, option:option = {space: 2, withInterface: true}): string {
     const {
         space,
         withInterface
@@ -18,7 +18,7 @@ export const sg2ts = function (str: string, option:option = {space: 2, withInter
             return getSpaces(space) + name + optionalString + ' ' + typeString + commentString
         })
     })
-    console.log(result.join('\n'))
+    return result.join('\n')
 }
 
 const getTypeString = (type: string): string => {
