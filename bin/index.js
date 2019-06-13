@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
-const sg2ts = require('../src');
+const { sg2ts } = require('../lib')
+const sourceStr = process.argv.slice(2)
 
-console.log('this is bin');
+if (sourceStr) {
+    console.log(sg2ts(sourceStr))
+}
+
