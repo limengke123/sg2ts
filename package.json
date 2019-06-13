@@ -11,7 +11,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postversion": "npm publish && git push && git push --tags"
+    "prepublish": "npm run build",
+    "postversion": "npm publish && git push && git push --tags",
+    "build": "tsc",
+    "build:watch": "tsc --watch"
   },
   "repository": {
     "type": "git",
@@ -23,5 +26,11 @@
   "bugs": {
     "url": "https://github.com/limengke123/sw2ts/issues"
   },
-  "homepage": "https://github.com/limengke123/sw2ts#readme"
+  "homepage": "https://github.com/limengke123/sw2ts#readme",
+  "devDependencies": {
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint": "^5.16.0",
+    "eslint-plugin-typescript": "^0.14.0",
+    "typescript": "^3.5.1"
+  }
 }
