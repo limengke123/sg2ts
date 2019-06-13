@@ -1,9 +1,11 @@
 {
   "name": "sg2ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a tool change swagger to typescript interface",
   "main": "src/index.js",
-  "files": ["src/"],
+  "files": [
+    "src/"
+  ],
   "bin": {
     "sw2ts": "bin/index.js"
   },
