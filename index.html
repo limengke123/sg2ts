@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #container {
+            display: flex;
+        }
+        #source {
+
+        }
+        #result {
+
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div>
+        <label for="source">请输入swagger</label><textarea name="source" id="source" cols="30" rows="10"></textarea>
+    </div>
+    <div id="result">
+    </div>
+</div>
+
+
+<script type="module">
+    import {sg2ts} from "../lib";
+    const sourceNode = document.querySelector('#source')
+    const resultNode = document.querySelector('#result')
+    const content = sourceNode.value
+    sourceNode.addEventListener('change', () => {
+        let resultText = ''
+        try {
+            resultText = sg2ts(content)
+        } catch (e) {
+            console.log(e.message)
+        } finally {
+            resultNode.innerHTML = resultText
+        }
+    })
+</script>
+</body>
+</html>
