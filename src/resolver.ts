@@ -2,7 +2,7 @@ import {getSpaces} from './util'
 
 export interface Ioption {
     space?: number
-    withInterface?: boolean
+    withInterface?: boolean,
 }
 const defaultOption: Partial<Ioption> = {
     space: 4,
@@ -10,7 +10,7 @@ const defaultOption: Partial<Ioption> = {
 }
 
 export class Resolver {
-    private option: Ioption
+    private readonly option: Ioption
     private source: string = ''
     private sourceLines: string[] = []
     private resultLines: string[] = []
@@ -40,20 +40,23 @@ export class Resolver {
     }
 
     run () {
-        const { space } = this.option
         this.sourceLines = this.source.split('\n').map((item: string) => item.trim())
         this.resultLines = this.sourceLines.map(line => {
-            return line.replace(this.bodyReg, (_, name, type, optional, comment) => {
-                const optionalString = optional ? '?:' : ':'
-                const typeString = this.getTypeString(type)
-                const commentString = comment ? ` //${comment}` : ''
-                return getSpaces(space) + name + optionalString + ' ' + typeString + commentString
-            })
+            if (this.bodyReg.test(line)) {
+                return this.handleBody(line)
+            }
+            return line
         })
     }
 
-    static getInstance (source: string, option?: Ioption) {
-        return new Resolver(source, option)
+    handleBody (line: string): string {
+        const { space } = this.option
+        return line.replace(this.bodyReg, (_, name, type, optional, comment) => {
+            const optionalString = optional ? '?:' : ':'
+            const typeString = this.getTypeString(type)
+            const commentString = comment ? ` //${comment}` : ''
+            return getSpaces(space) + name + optionalString + ' ' + typeString + commentString
+        })
     }
 
     getTypeString (type: string): string {
@@ -78,6 +81,9 @@ export class Resolver {
         return this.arrReg.test(str)
     }
 
+    static getInstance (source: string, option?: Ioption) {
+        return new Resolver(source, option)
+    }
 }
 
 
