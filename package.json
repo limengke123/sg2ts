@@ -14,7 +14,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "prepublish": "npm run build",
+    "preversion": "npm run build && npm run test",
     "postversion": "npm publish && git push && git push --tags",
     "build": "tsc",
     "build:watch": "tsc --watch"
