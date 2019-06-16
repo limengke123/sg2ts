@@ -1,8 +1,9 @@
 import { sg2ts }from '../src/index'
 
 describe('main entry', function () {
-    it('should get right result', function () {
-        const swaggerDocs = `
+    describe('normal condition', function () {
+        it('should get right result', function () {
+            const swaggerDocs = `
         export interface LeaseConsiceOrderView {
             orderNo (string, optional): 订单编号,
             orderType (integer, optional): 订单类型,
@@ -17,7 +18,7 @@ describe('main entry', function () {
             returnCarDate (array[integer]): 应交车日期,
         }
         `
-        const out = `
+            const out = `
 export interface LeaseConsiceOrderView {
     orderNo?: string // 订单编号,
     orderType?: number // 订单类型,
@@ -32,6 +33,26 @@ export interface LeaseConsiceOrderView {
     returnCarDate: Array<integer> // 应交车日期,
 }
 `
-        expect(sg2ts(swaggerDocs)).toBe(out)
+            expect(sg2ts(swaggerDocs)).toBe(out)
+        })
+    })
+
+    describe('with option', function () {
+        it('should handle with right space ', function () {
+            const source = `
+            LeaseConsiceOrderView {
+                orderType (integer, optional): 订单类型,
+                orderStatus (string): 订单状态,
+            }
+        `
+            const out = `
+LeaseConsiceOrderView {
+  orderType?: number // 订单类型,
+  orderStatus: string // 订单状态,
+}
+`
+            expect(sg2ts(source, {space: 2})).toBe(out)
+
+        })
     })
 })
