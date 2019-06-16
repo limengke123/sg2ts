@@ -12,6 +12,7 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "prepublish": "npm run build",
     "postversion": "npm publish && git push && git push --tags",
     "build": "tsc",
