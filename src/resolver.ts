@@ -3,10 +3,12 @@ import {getSpaces} from './util'
 export interface Ioption {
     space?: number
     withInterface?: boolean,
+    withExport?: boolean
 }
 const defaultOption: Partial<Ioption> = {
     space: 4,
-    withInterface: true
+    withInterface: true,
+    withExport: true
 }
 
 export class Resolver {
@@ -16,6 +18,7 @@ export class Resolver {
     private resultLines: string[] = []
 
     private bodyReg: RegExp = /^\s*(\w+)\s*\(([\[\]\w]+),?\s*(\w+)?\):?(.+)?/g
+    private headReg: RegExp = /^\s*(\w+)\s*{/g
     private arrReg: RegExp = /array\[(\w+)]$/g
 
 
@@ -42,6 +45,9 @@ export class Resolver {
     run () {
         this.sourceLines = this.source.split('\n').map((item: string) => item.trim())
         this.resultLines = this.sourceLines.map(line => {
+            if (this.headReg.test(line)) {
+                return this.handleHead(line)
+            }
             if (this.bodyReg.test(line)) {
                 return this.handleBody(line)
             }
@@ -57,6 +63,25 @@ export class Resolver {
             const commentString = comment ? ` //${comment}` : ''
             return getSpaces(space) + name + optionalString + ' ' + typeString + commentString
         })
+    }
+
+    handleHead (line: string): string {
+        const { withInterface, withExport } = this.option
+        if (withInterface || withExport) {
+            // pass
+            return line.replace(this.headReg, (_, name) => {
+                let str: string = ''
+                if (withExport) {
+                    str += 'export '
+                }
+                if (withInterface) {
+                    str += 'interface '
+                }
+                str = str + name + ' {'
+                return str
+            })
+        }
+        return line
     }
 
     getTypeString (type: string): string {

@@ -46,13 +46,49 @@ export interface LeaseConsiceOrderView {
             }
         `
             const out = `
-LeaseConsiceOrderView {
+export interface LeaseConsiceOrderView {
   orderType?: number // 订单类型,
   orderStatus: string // 订单状态,
 }
 `
             expect(sg2ts(source, {space: 2})).toBe(out)
 
+        })
+        it('should handle with get header', function () {
+            const source = `
+            LeaseConsiceOrderView {
+                orderType (integer, optional): 订单类型,
+                orderStatus (string): 订单状态,
+            }
+        `
+            const out1 = `
+export interface LeaseConsiceOrderView {
+  orderType?: number // 订单类型,
+  orderStatus: string // 订单状态,
+}
+`
+            const out2 = `
+interface LeaseConsiceOrderView {
+  orderType?: number // 订单类型,
+  orderStatus: string // 订单状态,
+}
+`
+            const out3 = `
+export LeaseConsiceOrderView {
+  orderType?: number // 订单类型,
+  orderStatus: string // 订单状态,
+}
+`
+            const out4 = `
+LeaseConsiceOrderView {
+  orderType?: number // 订单类型,
+  orderStatus: string // 订单状态,
+}
+`
+            expect(sg2ts(source, {withInterface: true, withExport: true})).toBe(out1)
+            expect(sg2ts(source, {withInterface: true, withExport: false})).toBe(out2)
+            expect(sg2ts(source, {withInterface: false, withExport: true})).toBe(out3)
+            expect(sg2ts(source, {withInterface: false, withExport: false})).toBe(out4)
         })
     })
 })
