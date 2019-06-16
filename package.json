@@ -4,7 +4,8 @@
   "description": "a tool change swagger to typescript interface",
   "main": "lib/index.js",
   "files": [
-    "lib/"
+    "lib/",
+    "bin/"
   ],
   "bin": {
     "sg2ts": "./bin/index.js"
