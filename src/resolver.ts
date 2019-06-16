@@ -41,7 +41,7 @@ export class Resolver {
 
     run () {
         const { space } = this.option
-        this.sourceLines = this.source.split('\n')
+        this.sourceLines = this.source.split('\n').map((item: string) => item.trim())
         this.resultLines = this.sourceLines.map(line => {
             return line.replace(this.bodyReg, (_, name, type, optional, comment) => {
                 const optionalString = optional ? '?:' : ':'

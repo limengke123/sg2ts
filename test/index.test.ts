@@ -18,20 +18,20 @@ describe('main entry', function () {
         }
         `
         const out = `
-        export interface LeaseConsiceOrderView {
-            orderNo?: string // 订单编号,
-            orderType?: integer // 订单类型,
-            orderStatus: string // 订单状态,
-            orderStatusString: number // 订单状态中文,
-            name?: string
-            mobile?: number
-            modelName: string
-            vin: number
-            saleDealerName?: Array<string> // 销售车商名称,
-            downPaymentDate?: Array<integer> // 首付支付日期,
-            returnCarDate: Array<integer> // 应交车日期,
-        }
-        `
+export interface LeaseConsiceOrderView {
+    orderNo?: string // 订单编号,
+    orderType?: number // 订单类型,
+    orderStatus: string // 订单状态,
+    orderStatusString: number // 订单状态中文,
+    name?: string
+    mobile?: number
+    modelName: string
+    vin: number
+    saleDealerName?: Array<string> // 销售车商名称,
+    downPaymentDate?: Array<integer> // 首付支付日期,
+    returnCarDate: Array<integer> // 应交车日期,
+}
+`
         expect(sg2ts(swaggerDocs)).toBe(out)
     })
 })
