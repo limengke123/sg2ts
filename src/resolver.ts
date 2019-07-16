@@ -18,8 +18,8 @@ export class Resolver {
     private resultLines: string[] = []
 
     private bodyReg: RegExp = /^\s*(\w+)\s*\(([\[\]«»\w]+),?\s*(\w+)?\):?(.+)?/g
-    private headReg: RegExp = /^\s*(«»[\w]+)\s*{/g
-    private arrReg: RegExp = /array\[([«»\w+])]$/g
+    private headReg: RegExp = /^\s*([«»\w]+)\s*{/g
+    private arrReg: RegExp = /array\[([«»\w]+)]$/g
 
 
     constructor(source: string, option?: Ioption) {
