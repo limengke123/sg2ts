@@ -14,10 +14,11 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "preversion": "npm run build && npm run test",
+    "preversion": "npm run clear && npm run build && npm run test",
     "postversion": "npm publish && git push && git push --tags",
     "build": "tsc",
-    "build:watch": "tsc --watch"
+    "build:watch": "tsc --watch",
+    "clear": "rimraf ./lib"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-typescript": "^0.14.0",
     "jest": "^24.8.0",
+    "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.1"
   }
