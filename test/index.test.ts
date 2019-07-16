@@ -91,4 +91,15 @@ LeaseConsiceOrderView {
             expect(sg2ts(source, {withInterface: false, withExport: false})).toBe(out4)
         })
     })
+
+    describe('with generics', function () {
+        it('should handle generics correctly', function () {
+            const input = 'Result«Page«RuleBriefView»» {'
+            const input2 = 'data (Page«RuleBriefView», optional),'
+            const output = 'export interface Result«Page«RuleBriefView»» {'
+            const output2 = '  data?: Page«RuleBriefView» //,'
+            expect(sg2ts(input, {withInterface: true, withExport: true})).toBe(output)
+            expect(sg2ts(input2, {withInterface: true, withExport: true})).toBe(output2)
+        })
+    })
 })
