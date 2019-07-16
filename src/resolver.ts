@@ -17,7 +17,7 @@ export class Resolver {
     private sourceLines: string[] = []
     private resultLines: string[] = []
 
-    private bodyReg: RegExp = /^\s*(\w+)\s*\(([\[\]\w]+),?\s*(\w+)?\):?(.+)?/g
+    private bodyReg: RegExp = /^\s*(\w+)\s*\(([\[\]«»\w]+),?\s*(\w+)?\):?(.+)?/g
     private headReg: RegExp = /^\s*(\w+)\s*{/g
     private arrReg: RegExp = /array\[(\w+)]$/g
 
