@@ -1,6 +1,6 @@
 {
   "name": "sg2ts",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "a tool change swagger to typescript interface",
   "main": "lib/index.js",
   "files": [
