@@ -29,8 +29,8 @@ export interface LeaseConsiceOrderView {
     modelName: string
     vin: number
     saleDealerName?: Array<string> // 销售车商名称,
-    downPaymentDate?: Array<integer> // 首付支付日期,
-    returnCarDate: Array<integer> // 应交车日期,
+    downPaymentDate?: Array<number> // 首付支付日期,
+    returnCarDate: Array<number> // 应交车日期,
 }
 `
             expect(sg2ts(swaggerDocs)).toBe(out)

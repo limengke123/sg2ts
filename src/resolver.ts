@@ -98,7 +98,7 @@ export class Resolver {
 
     parseArray (str: string): string {
         return str.replace(this.arrReg, (_, generics) => {
-            return `Array<${generics}>`
+            return `Array<${this.getTypeString(generics)}>`
         })
     }
 
