@@ -96,10 +96,16 @@ LeaseConsiceOrderView {
         it('should handle generics correctly', function () {
             const input = 'Result«Page«RuleBriefView»» {'
             const input2 = 'data (Page«RuleBriefView», optional),'
-            const output = 'export interface Result«Page«RuleBriefView»» {'
-            const output2 = '  data?: Page«RuleBriefView» //,'
+            const output = 'export interface Result<Page<RuleBriefView>> {'
+            const output2 = '  data?: Page<RuleBriefView> //,'
             expect(sg2ts(input, {withInterface: true, withExport: true})).toBe(output)
             expect(sg2ts(input2, {withInterface: true, withExport: true})).toBe(output2)
+        })
+
+        xit('should handle hashMap correctly', function () {
+            const input3 = 'todayAvgScore (HashMap«string,List«string»», optional): 日平均分,'
+            const output3 = '  todayAvgScore?: HashMap<string, List<string>> //日平均分,'
+            expect(sg2ts(input3, {withInterface: true, withExport: true})).toBe(output3)
         })
     })
 })

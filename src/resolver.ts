@@ -17,9 +17,10 @@ export class Resolver {
     private sourceLines: string[] = []
     private resultLines: string[] = []
 
-    private bodyReg: RegExp = /^\s*(\w+)\s*\(([\[\]«»\w]+),?\s*(\w+)?\):?(.+)?/g
-    private headReg: RegExp = /^\s*([«»\w]+)\s*{/g
-    private arrReg: RegExp = /array\[([«»\w]+)]$/g
+    private bodyReg: RegExp = /^\s*(\w+)\s*\(([\[\]<>\w]+),?\s*(\w+)?\):?(.+)?/g
+    private headReg: RegExp = /^\s*([<>\w]+)\s*{/g
+    private arrReg: RegExp = /array\[([<>\w]+)]$/g
+    private specialSymbol: RegExp = /([«»])/g
 
 
     constructor(source: string, option?: Ioption) {
@@ -45,6 +46,7 @@ export class Resolver {
     run () {
         this.sourceLines = this.source.split('\n').map((item: string) => item.trim())
         this.resultLines = this.sourceLines.map(line => {
+            line = this.handleSpecialSymbol(line)
             if (this.headReg.test(line)) {
                 return this.handleHead(line)
             }
@@ -52,6 +54,18 @@ export class Resolver {
                 return this.handleBody(line)
             }
             return line
+        })
+    }
+
+    handleSpecialSymbol(line: string): string {
+        return line.replace(this.specialSymbol, (_, symbol) => {
+            if (symbol === '«') {
+                return '<'
+            } else if (symbol === '»') {
+                return '>'
+            } else {
+                return symbol
+            }
         })
     }
 
