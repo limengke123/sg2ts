@@ -1,4 +1,4 @@
-import { sg2ts }from '../src/index'
+import { sg2ts }from '../src'
 
 describe('main entry', function () {
     describe('normal condition', function () {
@@ -97,7 +97,7 @@ LeaseConsiceOrderView {
             const input = 'Result«Page«RuleBriefView»» {'
             const input2 = 'data (Page«RuleBriefView», optional),'
             const output = 'export interface Result<Page<RuleBriefView>> {'
-            const output2 = '  data?: Page<RuleBriefView> //,'
+            const output2 = '  data?: Page<RuleBriefView> // ,'
             expect(sg2ts(input, {withInterface: true, withExport: true})).toBe(output)
             expect(sg2ts(input2, {withInterface: true, withExport: true})).toBe(output2)
         })
