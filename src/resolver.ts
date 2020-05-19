@@ -1,14 +1,22 @@
 import {getSpaces} from './util'
 
+
+export const enum splitTypeEnum {
+    normal = 'normal',
+    comma = 'comma'
+}
+
 export interface Ioption {
     space?: number
     withInterface?: boolean,
-    withExport?: boolean
+    withExport?: boolean,
+    splitType?: ((sourceString: string) => string[]) | splitTypeEnum
 }
 const defaultOption: Partial<Ioption> = {
     space: 4,
     withInterface: true,
-    withExport: true
+    withExport: true,
+    splitType: splitTypeEnum.normal
 }
 
 export interface ExtractBodyInfo {
@@ -48,6 +56,22 @@ export class Resolver {
 
     get result (): string {
         return this.resultLines.join('\n')
+    }
+
+    splitToList(): string[] {
+        if (this.option.splitType) {
+            if (typeof this.option.splitType === 'function') {
+                return this.option.splitType(this.source)
+            }
+            switch (this.option.splitType) {
+            case splitTypeEnum.comma:
+                const reg = /([%da-zA-Z_]+[\s]+\([a-z,\s]+\)[:\s\u4e00-\u9fa5a-zA-z]*,?)/g
+                return this.source.split(reg).map(item => item.trim()).filter(item => !!item)
+            case splitTypeEnum.normal:
+                return this.source.split('\n')
+            }
+        }
+        return this.source.split('\n')
     }
 
     run () {
@@ -156,6 +180,10 @@ export class Resolver {
 
     static getInstance (source: string, option?: Ioption) {
         return new Resolver(source, option)
+    }
+
+    setSource(source: string) {
+        this.source = source
     }
 }
 
