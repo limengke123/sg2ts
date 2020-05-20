@@ -115,14 +115,14 @@ LeaseConsiceOrderView {
         it('返回正确的数据当传入的数据是逗号分隔', function () {
             const input = 'AreaDTO { initial (string, optional), areaCode (string, optional), provinceCode (string, optional), provinceName (string, optional), cityCode (string, optional), cityName (string, optional), countyCode (string, optional), countyName (string, optional) }'
             const output = `export interface AreaDTO {
-    initial?: string // ,
-    areaCode?: string // ,
-    provinceCode?: string // ,
-    provinceName?: string // ,
-    cityCode?: string // ,
-    cityName?: string // ,
-    countyCode?: string // ,
-    countyName?: string
+  initial?: string // ,
+  areaCode?: string // ,
+  provinceCode?: string // ,
+  provinceName?: string // ,
+  cityCode?: string // ,
+  cityName?: string // ,
+  countyCode?: string // ,
+  countyName?: string
 }`
             expect(sg2ts(input, {
                 splitType: splitTypeEnum.comma
