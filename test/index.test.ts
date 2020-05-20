@@ -1,4 +1,5 @@
-import { sg2ts }from '../src'
+import {sg2ts} from '../src'
+import {splitTypeEnum} from '../src/resolver'
 
 describe('main entry', function () {
     describe('normal condition', function () {
@@ -106,6 +107,26 @@ LeaseConsiceOrderView {
             const input3 = 'todayAvgScore (HashMap«string,List«string»», optional): 日平均分,'
             const output3 = '  todayAvgScore?: HashMap<string, List<string>> //日平均分,'
             expect(sg2ts(input3, {withInterface: true, withExport: true})).toBe(output3)
+        })
+    })
+
+
+    describe('应该能处理逗号分隔的数据', function () {
+        it('返回正确的数据当传入的数据是逗号分隔', function () {
+            const input = 'AreaDTO { initial (string, optional), areaCode (string, optional), provinceCode (string, optional), provinceName (string, optional), cityCode (string, optional), cityName (string, optional), countyCode (string, optional), countyName (string, optional) }'
+            const output = `export interface AreaDTO {
+    initial?: string // ,
+    areaCode?: string // ,
+    provinceCode?: string // ,
+    provinceName?: string // ,
+    cityCode?: string // ,
+    cityName?: string // ,
+    countyCode?: string // ,
+    countyName?: string
+}`
+            expect(sg2ts(input, {
+                splitType: splitTypeEnum.comma
+            })).toBe(output)
         })
     })
 })

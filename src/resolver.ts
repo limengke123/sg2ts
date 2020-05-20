@@ -65,17 +65,17 @@ export class Resolver {
             }
             switch (this.option.splitType) {
             case splitTypeEnum.comma:
-                const reg = /([%da-zA-Z_]+[\s]+\([a-z,\s]+\)[:\s\u4e00-\u9fa5a-zA-z]*,?)/g
+                const reg = /([\da-zA-Z_]+[\s]+\([a-z,\s]+\)[:\s\u4e00-\u9fa5a-zA-z]*,?)/g
                 return this.source.split(reg).map(item => item.trim()).filter(item => !!item)
             case splitTypeEnum.normal:
-                return this.source.split('\n')
+                return this.source.split('\n').map(item => item.trim())
             }
         }
-        return this.source.split('\n')
+        return this.source.split('\n').map(item => item.trim())
     }
 
     run () {
-        this.sourceLines = this.source.split('\n').map((item: string) => item.trim())
+        this.sourceLines = this.splitToList()
         this.resultLines = this.sourceLines.map(line => {
             line = Resolver.handleSpecialSymbol(line)
             if (Resolver.headReg.test(line)) {
